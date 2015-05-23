@@ -298,13 +298,11 @@ func main() {
 		for _, commit := range t.Commit {
 			ids = append(ids, commit.ID[:7])
 		}
-		idstr := strings.Join(ids, ",")
 
-		fmt.Printf("%8.1f %-30s %4d %-40s\n",
+		fmt.Printf("%8.1f %-40s %4d\n",
 			t.Score,
-			shorten(t.Name, 30),
+			shorten(t.Name, 40),
 			len(ids),
-			shorten(idstr, 40),
 		)
 		for i, reason := range t.Reason {
 			if i == *topReason {
@@ -312,6 +310,11 @@ func main() {
 			}
 			if *detail || reason.Count > 1 {
 				fmt.Printf("    %4d %s\n", reason.Count, reason.Line)
+			}
+		}
+		if *detail {
+			for _, id := range ids {
+				fmt.Printf("         %s\n", id)
 			}
 		}
 		fmt.Println()
