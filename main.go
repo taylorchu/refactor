@@ -300,7 +300,7 @@ func main() {
 		}
 		idstr := strings.Join(ids, ",")
 
-		fmt.Printf("%-8.1f %-30s %-4d %-40s\n",
+		fmt.Printf("%8.1f %-30s %4d %-40s\n",
 			t.Score,
 			shorten(t.Name, 30),
 			len(ids),
@@ -311,7 +311,7 @@ func main() {
 				break
 			}
 			if *detail || reason.Count > 1 {
-				fmt.Printf("    (%d) %s\n", reason.Count, reason.Line)
+				fmt.Printf("    %4d %s\n", reason.Count, reason.Line)
 			}
 		}
 		fmt.Println()
