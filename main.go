@@ -294,15 +294,10 @@ func main() {
 		if i == *topTarget {
 			break
 		}
-		var ids []string
-		for _, commit := range t.Commit {
-			ids = append(ids, commit.ID[:7])
-		}
-
 		fmt.Printf("%8.1f %-40s %4d\n",
 			t.Score,
 			shorten(t.Name, 40),
-			len(ids),
+			len(t.Commit),
 		)
 		for i, reason := range t.Reason {
 			if i == *topReason {
@@ -313,8 +308,16 @@ func main() {
 			}
 		}
 		if *detail {
-			for _, id := range ids {
-				fmt.Printf("         %s\n", id)
+			for _, commit := range t.Commit {
+				var msg string
+				if len(commit.Message) > 0 {
+					msg = commit.Message[0]
+				}
+				fmt.Printf("         %s %s (%s)\n",
+					commit.ID[:7],
+					msg,
+					commit.Author.Name,
+				)
 			}
 		}
 		fmt.Println()
